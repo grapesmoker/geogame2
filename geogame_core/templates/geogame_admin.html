@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/geogame_admin.css" type="text/css"/>
+  
+  <!-- a bunch of css for menus -->
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/menu/helper.css" type="text/css"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/menu/dropdown/dropdown.vertical.css" type="text/css"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/menu/dropdown/dropdown.linear.css" type="text/css"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/menu/dropdown/themes/default/default.linear.css" media="screen" rel="stylesheet" type="text/css" />
+  
+  <!-- blueprint stuff -->
+  <!--<link rel="stylesheet" href="{{ STATIC_URL }}css/blueprint/screen.css" type="text/css" media="screen, projection">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/blueprint/print.css" type="text/css" media="print">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/blueprint/plugins/buttons/screen.css" type="text/css" media="screen">-->
+  
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCVTlLbP7-nF5hLUuBVtbosWGoEXMkWo60&sensor=false"></script>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/smoothness/jquery-ui-1.8.23.custom.css" type="text/css">
+  
+  <!-- data tables-->
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/data-tables/jquery.dataTables.css" type="text/css" media="print">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/data-tables/jquery.dataTables_themeroller.css" type="text/css" media="print">
+  
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.8.0.min.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-ui-1.8.23.custom.min.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.dataTables.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/fnReloadAjax.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/geogame_admin.js"></script>
+  
+  <title>GeoGame Admin page</title>
+</head>
+<body>
+	<div class="span-24">
+		<ul id="nav" class="dropdown dropdown-linear">
+			<li class="dir">Game
+				<ul class="dropdown dropdown-linear">
+					<li><a href="javascript:void(0);" id="reset-game">Reset game</a></li>
+					<li><a href="javascript:void(0);" id="start-game">Start game</a></li>
+				</ul>
+			</li>
+			<li class="dir">Settings
+				<ul class="dropdown dropdown-linear">
+					<li><a href="javascript:void(0);" id="change-game-settings">Change game settings</a></li>
+					<li><a href="/rpc/change_synonyms">Change synonyms</a></li>
+					<li><a href="/rpc/change_forms">Change forms</a></li>
+				</ul>	
+			</li>
+			<li class="dir">Commands
+				<ul class="dropdown dropdown-linear">
+					<li><a href="/rpc/create_user_network">Create user network</a></li>
+					<li><a href="/rpc/send_admin_message">Send admin message</a></li>
+					<li><a href="/rpc/redraw_user_graph">Redraw user graph</a></li>
+					<li><a href="/rpc/show_synonyms">Show synonyms to players</a></li>
+				</ul>	
+			</li>
+		</ul>
+	</div>
+	<div class="spacer-row">&nbsp;</div>
+		<table id="player-table">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Location</th>
+					<th>Items collected</th>
+					<th>Number of neighbors</th>
+					<th>Status</th>
+					<th>Score</th>
+					<th>Goal item</th>
+				</tr>
+			</thead>
+			<tbody>
+				
+			</tbody>
+		</table>
+	
+	<!-- define some dialog forms -->
+	
+	<!-- dialog for a generic message display -->
+	
+	<div id="message-dialog" class="ui-dialog" title="Attention!">
+		
+	</div>
+	
+	<!-- dialog for the reset -->
+	 
+	<div id="reset-dialog" class="ui-dialog" title="Reset Game">
+		<form id="reset-form">
+			<fieldset>
+				<!--<p>
+					<label for="id_start_time">Start time:</label>
+					<input type="text" name="start_time" id="id_start_time" />
+				</p>
+				<p>
+					<label for="id_end_time">End time:</label>
+					<input type="text" name="end_time" id="id_end_time" />
+				</p>-->
+				<p>
+					<label for="id_settings">Select game settings:</label>
+					<select name="settings" id="id_settings">
+						<option value="" selected="selected">---------</option>
+					</select>
+				</p>
+			</fieldset>
+		</form>
+	</div>
+	
+	<!-- dialog for the settings form -->
+	
+	<div id="settings-dialog" title="Settings">
+		<form id="settings-form">
+			<fieldset>
+				<p>
+					<label for="id_name">Name:</label>
+					<input id="id_name" maxlength="200" name="name" type="text"/>
+				</p>
+				<p>
+					<label for="id_game_duration">Game duration:</label>
+					<input id="id_game_duration" name="game_duration" type="text"/>
+				</p>
+				<p>
+					<label for="id_network_type">Network type:</label>
+					<select id="id_network_type" name="network_type">
+						<option value="SMALL_WORLD">Small world</option>
+					</select>
+					<!--<input id="id_network_type" maxlength="100" name="network_type" type="text"/>-->
+				</p>
+				<p>
+					<label for="id_graph_density">Graph density:</label>
+					<input id="id_graph_density" name="graph_density" type="text"/>
+				</p>
+				<p>
+					<label for="id_average_degree">Average degree:</label>
+					<input id="id_average_degree" name="average_degree" type="text"/>
+				</p>
+				<p>
+					<label for="id_rebuild_user_network">Rebuild user network:</label>
+					<input id="id_rebuild_user_network" name="rebuild_user_network" type="checkbox"/>
+				</p>
+				<p>
+					<label for="id_rebuild_road_network">Rebuild road network:</label>
+					<input id="id_rebuild_road_network" name="rebuild_road_network" type="checkbox"/>
+				</p>
+				<p>
+					<label for="id_new_item_assignment">New item assignment:</label>
+					<input id="id_new_item_assignment" name="new_item_assignment" type="checkbox"/>
+				</p>
+				<p>
+					<label for="id_communication_allowed">Communication allowed:</label>
+					<input id="id_communication_allowed" name="communication_allowed" type="checkbox"/>
+				</p>
+				<p>
+					<label for="id_min_road_time">Min road time:</label>
+					<input id="id_min_road_time" name="min_road_time" type="text"/>
+				</p>
+				<p>
+					<label for="id_max_road_time">Max road time:</label>
+					<input id="id_max_road_time" name="max_road_time" type="text"/>
+				</p>
+
+			</fieldset>
+		</form>
+	</div>
+</body>

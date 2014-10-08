@@ -1,0 +1,39 @@
+/* base css */
+
+*.container {
+    margin: 5px;
+    position: relative;
+    left: 300px;
+    width: 800px;
+}
+
+*.header {
+	border: 1px solid green;
+	margin: 5px;
+	text-align: center;
+	height: 100px;
+	width: 800px;
+}
+
+*.sidebar {
+  background-color: #16b5ff;
+  border: solid 1px;
+  margin: 5px;
+  width: 20%;
+  float: left;
+  position: absolute;
+}
+
+
+
+h1 {
+    color: green;
+}
+
+.map_labels {
+	color: red;
+	background-color: white;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
+}

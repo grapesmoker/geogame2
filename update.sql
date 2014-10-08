@@ -1,0 +1,13 @@
+ALTER TABLE `geogame_core_item` ADD CONSTRAINT `location_id_refs_id_2cd795c7` FOREIGN KEY (`location_id`) REFERENCES `geogame_core_location` (`id`);
+ALTER TABLE `geogame_core_item` ADD CONSTRAINT `item_type_id_refs_id_5c44cf09` FOREIGN KEY (`item_type_id`) REFERENCES `geogame_core_itemtype` (`id`);
+ALTER TABLE `geogame_core_itemtype_synonyms` ADD CONSTRAINT `itemtype_id_refs_id_16f2d31` FOREIGN KEY (`itemtype_id`) REFERENCES `geogame_core_itemtype` (`id`);
+ALTER TABLE `geogame_core_itemtype_synonyms` ADD CONSTRAINT `synonym_id_refs_id_15ba5a26` FOREIGN KEY (`synonym_id`) REFERENCES `geogame_core_synonym` (`id`);
+ALTER TABLE `geogame_core_player_messages` ADD CONSTRAINT `message_id_refs_id_4e75a106` FOREIGN KEY (`message_id`) REFERENCES `geogame_core_message` (`id`);
+ALTER TABLE `geogame_core_player` ADD CONSTRAINT `location_id_refs_id_1df159e7` FOREIGN KEY (`location_id`) REFERENCES `geogame_core_location` (`id`);
+ALTER TABLE `geogame_core_player` ADD CONSTRAINT `accepted_forms_id_refs_id_43f4d7c9` FOREIGN KEY (`accepted_forms_id`) REFERENCES `geogame_core_acceptedform` (`id`);
+ALTER TABLE `geogame_core_player` ADD CONSTRAINT `user_ptr_id_refs_id_5c61ac` FOREIGN KEY (`user_ptr_id`) REFERENCES `auth_user` (`id`);
+ALTER TABLE `geogame_core_item` ADD CONSTRAINT `owner_id_refs_user_ptr_id_4de6775` FOREIGN KEY (`owner_id`) REFERENCES `geogame_core_player` (`user_ptr_id`);
+ALTER TABLE `geogame_core_message` ADD CONSTRAINT `sender_id_refs_user_ptr_id_2c83f06a` FOREIGN KEY (`sender_id`) REFERENCES `geogame_core_player` (`user_ptr_id`);
+ALTER TABLE `geogame_core_player_neighbors` ADD CONSTRAINT `from_player_id_refs_user_ptr_id_435a0c55` FOREIGN KEY (`from_player_id`) REFERENCES `geogame_core_player` (`user_ptr_id`);
+ALTER TABLE `geogame_core_player_neighbors` ADD CONSTRAINT `to_player_id_refs_user_ptr_id_435a0c55` FOREIGN KEY (`to_player_id`) REFERENCES `geogame_core_player` (`user_ptr_id`);
+ALTER TABLE `geogame_core_player_messages` ADD CONSTRAINT `player_id_refs_user_ptr_id_211bfc5d` FOREIGN KEY (`player_id`) REFERENCES `geogame_core_player` (`user_ptr_id`);

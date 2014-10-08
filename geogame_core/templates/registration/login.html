@@ -1,0 +1,32 @@
+<head>
+	<link rel="stylesheet" href="{{ STATIC_URL }}admin/css/base.css" type="text/css"/>
+	<link rel="stylesheet" href="{{ STATIC_URL }}admin/css/login.css" type="text/css"/>
+</head>
+<body>
+	{% if form.errors %}
+	<p>
+		<font color="red">Invalid username and/or password!</font>
+	</p>
+	{% endif %}
+	<div class="login">
+		<div id="container">
+			<form method="post" action="">
+				{% csrf_token %}
+				<table>
+					<tr>
+						<td class="form-row">{{ form.username.label_tag }}</td>
+						<td class="form-row">{{ form.username }}</td>
+					</tr>
+					<tr>
+						<td class="form-row">{{ form.password.label_tag }}</td>
+						<td class="form-row">{{ form.password }}</td>
+					</tr>
+					<tr>
+						<td class="submit-row"><input type="submit" value="Login" /></td>
+					</tr>
+				</table>
+				<input type="hidden" value="{{ next }}" />
+			</form>
+		</div>
+	</div>
+</body>
